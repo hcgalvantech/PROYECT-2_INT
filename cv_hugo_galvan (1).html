@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Hugo Cesar Galvan</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .photo-container {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            border: 5px solid white;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #e0e7ff 0%, #ddd6f3 100%);
+            color: #667eea;
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .location {
+            margin-top: 10px;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+        }
+
+        .btn-whatsapp:hover {
+            background: #20BA5A;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-download {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-download:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 35px;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .skill-item {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 15px 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .skill-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1em;
+        }
+
+        .experience-item, .education-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #764ba2;
+            transition: all 0.3s ease;
+        }
+
+        .experience-item:hover, .education-item:hover {
+            background: #f0f2f5;
+            transform: translateX(5px);
+        }
+
+        .item-title {
+            font-size: 1.3em;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .item-subtitle {
+            color: #667eea;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .item-date {
+            color: #666;
+            font-style: italic;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .item-description {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .contact-icon {
+            font-size: 1.5em;
+        }
+
+        footer {
+            background: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .actions {
+                display: none;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            .content {
+                padding: 20px;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="cv-content">
+        <div class="header">
+            <div class="photo-container">
+                <div class="photo-placeholder">HG</div>
+            </div>
+            <h1>Hugo Cesar Galvan</h1>
+            <p class="subtitle">Profesional del Área Comercial</p>
+            <p class="location">📍 Posadas, Misiones, Argentina</p>
+            
+            <div class="actions">
+                <a href="https://wa.me/5493764000000" class="btn btn-whatsapp" target="_blank">
+                    <span>💬</span> Contactar por WhatsApp
+                </a>
+                <button onclick="downloadPDF()" class="btn btn-download">
+                    <span>⬇️</span> Descargar CV en PDF
+                </button>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">
+                    <span>👤</span> Perfil Profesional
+                </h2>
+                <p style="color: #555; line-height: 1.8; font-size: 1.05em;">
+                    Profesional del área comercial con sólida orientación a resultados y excelentes capacidades interpersonales. 
+                    Destaco por mi capacidad de generar ideas innovadoras, tomar decisiones estratégicas con determinación y 
+                    mantener una comunicación efectiva que construye relaciones comerciales duraderas. Mi versatilidad me permite 
+                    prosperar en entornos dinámicos y desafiantes.
+                </p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">
+                    <span>⭐</span> Competencias Profesionales
+                </h2>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-name">💡 Pensamiento Innovador</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">🎯 Orientación a Resultados</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">🤝 Construcción de Relaciones</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">⚡ Resolución Ágil de Problemas</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">🗣️ Negociación Efectiva</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">🔄 Flexibilidad Estratégica</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">📊 Análisis de Mercado</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">🎨 Gestión de Propuestas Comerciales</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">💼 Desarrollo de Negocios</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">🚀 Proactividad e Iniciativa</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">👥 Liderazgo de Equipos</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">📈 Gestión de KPIs Comerciales</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">
+                    <span>💼</span> Experiencia Profesional
+                </h2>
+                <div class="experience-item">
+                    <div class="item-title">Ejecutivo Comercial Senior</div>
+                    <div class="item-subtitle">Empresa Líder del Sector</div>
+                    <div class="item-date">2020 - Presente</div>
+                    <div class="item-description">
+                        • Gestión integral de cartera de clientes corporativos con incremento del 35% en ventas<br>
+                        • Desarrollo e implementación de estrategias comerciales innovadoras<br>
+                        • Negociación de contratos de alto valor y cierre de acuerdos estratégicos<br>
+                        • Liderazgo de equipo comercial y capacitación continua
+                    </div>
+                </div>
+                <div class="experience-item">
+                    <div class="item-title">Representante de Ventas</div>
+                    <div class="item-subtitle">Compañía Regional</div>
+                    <div class="item-date">2017 - 2020</div>
+                    <div class="item-description">
+                        • Prospección y desarrollo de nuevos clientes en la región<br>
+                        • Superación de objetivos de ventas mensuales en un 120%<br>
+                        • Construcción de relaciones comerciales duraderas<br>
+                        • Análisis de mercado y detección de oportunidades de negocio
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">
+                    <span>🎓</span> Formación Académica
+                </h2>
+                <div class="education-item">
+                    <div class="item-title">Licenciatura en Administración de Empresas</div>
+                    <div class="item-subtitle">Universidad Nacional de Misiones</div>
+                    <div class="item-date">2013 - 2017</div>
+                </div>
+                <div class="education-item">
+                    <div class="item-title">Diplomatura en Estrategias Comerciales</div>
+                    <div class="item-subtitle">Instituto de Formación Profesional</div>
+                    <div class="item-date">2019</div>
+                </div>
+                <div class="education-item">
+                    <div class="item-title">Certificación en Negociación Avanzada</div>
+                    <div class="item-subtitle">Cámara de Comercio</div>
+                    <div class="item-date">2021</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">
+                    <span>📞</span> Información de Contacto
+                </h2>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-icon">📧</span>
+                        <span>hugo.galvan@email.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📱</span>
+                        <span>+54 9 3764 000000</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">💼</span>
+                        <span>linkedin.com/in/hugogalvan</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <span>Posadas, Misiones, Argentina</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 Hugo Cesar Galvan - Todos los derechos reservados</p>
+        </footer>
+    </div>
+
+    <script>
+        function downloadPDF() {
+            const element = document.getElementById('cv-content');
+            const opt = {
+                margin: 0,
+                filename: 'CV_Hugo_Cesar_Galvan.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            // Ocultar botones antes de generar PDF
+            const actions = document.querySelector('.actions');
+            actions.style.display = 'none';
+            
+            html2pdf().set(opt).from(element).save().then(() => {
+                actions.style.display = 'flex';
+            });
+        }
+
+        // Animación de entrada para las secciones
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
